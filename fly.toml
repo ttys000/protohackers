@@ -1,0 +1,32 @@
+# fly.toml app configuration file generated for protohackers-go-black-morning-7593 on 2024-09-04T22:53:56+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'protohackers-go-black-morning-7593'
+primary_region = 'hkg'
+
+[build]
+  [build.args]
+    GO_VERSION = '1.22.5'
+
+[[services]]
+internal_port = 5002
+protocal = 'tcp'
+processes = ['app']
+
+[[services.ports]]
+port = 5002
+
+[[services]]
+internal_port = 5002
+protocal = 'udp'
+processes = ['app']
+
+[[services.ports]]
+port = 5002
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
