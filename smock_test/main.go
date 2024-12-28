@@ -10,7 +10,7 @@ import (
 var port = 5002
 
 func main() {
-	udp, err := net.ListenPacket("udp", fmt.Sprintf("fly-global-services:%d", port))
+	udp, err := net.ListenPacket("udp", fmt.Sprintf("0.0.0.0:%d", port))
 	if err != nil {
 		log.Fatalf("can't listen on %d/udp: %s", port, err)
 	}
