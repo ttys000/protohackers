@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"protohackers/echo"
+	"protohackers/price"
 	"protohackers/prime"
 )
 
@@ -23,6 +24,7 @@ func main() {
 	// Start servers
 	go echo.RunServer(ctx, 5001, &wg)
 	go prime.RunServer(ctx, 5002, &wg)
+	go price.RunServer(ctx, 5003, &wg)
 
 	// Wait for interrupt signal
 	<-ctx.Done()
