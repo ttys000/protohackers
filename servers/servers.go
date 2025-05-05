@@ -14,8 +14,8 @@ type LocalTCPServer struct {
 	Name                     string
 	Port                     int
 	ConnectionHandler        func(net.Conn)
-	MaxConcurrentConnections int
 	ConnectionTracker        *sync.WaitGroup
+	MaxConcurrentConnections int
 }
 
 func (server *LocalTCPServer) Serve(ctx context.Context) {
