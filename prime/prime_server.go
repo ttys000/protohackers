@@ -29,8 +29,9 @@ func RunServer(ctx context.Context, port int, wg *sync.WaitGroup) {
 	}()
 
 	config := servers.TCPServerConfig{
-		ServerName:        serverName,
-		ConnectionHandler: handleConn,
+		ServerName:               serverName,
+		ConnectionHandler:        handleConn,
+		MaxConcurrentConnections: 100,
 	}
 	servers.HandleTCP(ctx, tcp, wg, config)
 }

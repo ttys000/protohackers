@@ -8,15 +8,14 @@ import (
 	"sync"
 )
 
-const maxConcurrentConnections = 100
-
 type TCPServerConfig struct {
-	ServerName        string
-	ConnectionHandler func(net.Conn)
+	ServerName               string
+	ConnectionHandler        func(net.Conn)
+	MaxConcurrentConnections int
 }
 
 func HandleTCP(ctx context.Context, tcp net.Listener, wg *sync.WaitGroup, config TCPServerConfig) {
-	semaphore := make(chan struct{}, maxConcurrentConnections)
+	semaphore := make(chan struct{}, config.MaxConcurrentConnections)
 
 	for {
 		select {
