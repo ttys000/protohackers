@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"sync"
+	"time"
 )
 
 type TCPServerConfig struct {
@@ -35,9 +36,18 @@ func HandleTCP(ctx context.Context, tcp net.Listener, wg *sync.WaitGroup, config
 				continue
 			}
 
+			// Set a read deadline to prevent hanging connections
+			if err := conn.SetReadDeadline(time.Now().Add(5 * time.Minute)); err != nil {
+				log.Printf("%s Failed to set read deadline: %v", config.ServerName, err)
+				conn.Close()
+				<-semaphore
+				continue
+			}
+
 			wg.Add(1)
 			go func() {
 				defer func() {
+					conn.Close()
 					<-semaphore
 					wg.Done()
 				}()

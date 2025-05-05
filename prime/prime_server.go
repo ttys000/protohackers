@@ -8,7 +8,6 @@ import (
 	"log"
 	"net"
 	"sync"
-	"time"
 
 	"protohackers/servers"
 )
@@ -37,11 +36,6 @@ func RunServer(ctx context.Context, port int, wg *sync.WaitGroup) {
 }
 
 func handleConn(conn net.Conn) {
-	defer conn.Close()
-
-	// Set a read deadline to prevent hanging connections
-	conn.SetReadDeadline(time.Now().Add(5 * time.Second))
-
 	decoder := json.NewDecoder(conn)
 	req := &isPrimeRequest{}
 	if err := decoder.Decode(req); err != nil {

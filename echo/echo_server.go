@@ -34,8 +34,6 @@ func RunServer(ctx context.Context, port int, wg *sync.WaitGroup) {
 }
 
 func handleConn(conn net.Conn) {
-	defer conn.Close()
-
 	buf := make([]byte, 65536)
 	for {
 		nbyte, err := conn.Read(buf)
