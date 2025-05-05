@@ -11,7 +11,7 @@ import (
 const serverName = "[Echo]"
 
 func RunServer(ctx context.Context, port int, wg *sync.WaitGroup) {
-	server := servers.LocalTCPServer{
+	server := &servers.LocalTCPServer{
 		Name:                     serverName,
 		Port:                     port,
 		ConnectionHandler:        handleConn,
